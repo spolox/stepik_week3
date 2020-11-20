@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
@@ -5,9 +6,17 @@ from django.views.generic.base import View
 from jobs.models import Vacancy, Specialty, Company
 
 
-# TODO error 404, 500
+def custom_handler404(request, exception):
+    return HttpResponseNotFound('Извините, страница не найдена.')
+
+
+def custom_handler500(request):
+    return HttpResponseNotFound('Внутреняя ошибка сервака. Приносим свои извинения, повторите попытку позже')
+
+
 class MainView(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         context = {
             'companies': Company.objects.all(),
             'specialties': Specialty.objects.all(),
