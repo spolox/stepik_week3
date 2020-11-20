@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -114,8 +114,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_ROOT = 'media'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+MEDIA_URL = '/media/'
+
+MEDIA_COMPANY_IMAGE_DIR = 'company_images'
+
+MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
 
 STATIC_URL = '/static/'

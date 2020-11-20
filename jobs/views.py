@@ -5,9 +5,14 @@ from django.views.generic.base import View
 from jobs.models import Vacancy, Specialty, Company
 
 
+# TODO error 404, 500
 class MainView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        context = {
+            'companies': Company.objects.all(),
+            'specialties': Specialty.objects.all(),
+        }
+        return render(request, 'index.html', context)
 
 
 class ListVacancyView(ListView):
@@ -21,16 +26,9 @@ class DetailVacancyView(DetailView):
     model = Vacancy
 
 
-class ListSpecialtyView(ListView):
+class ListSpecialtyView(DetailView):
     model = Specialty
-
-    def get_queryset(self):
-        return Vacancy
 
 
 class DetailCompanyView(DetailView):
     model = Company
-
-
-
-
