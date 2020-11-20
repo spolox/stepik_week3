@@ -6,8 +6,11 @@ from stepik_hh.settings import MEDIA_SPECIALITY_IMAGE_DIR, MEDIA_COMPANY_IMAGE_D
 class Specialty(models.Model):
     code = models.CharField(max_length=20, primary_key=True)
     title = models.CharField(max_length=20)
-    picture = models.ImageField(upload_to=MEDIA_SPECIALITY_IMAGE_DIR, height_field='height_field',
-                                width_field='width_field')
+    picture = models.ImageField(
+        upload_to=MEDIA_SPECIALITY_IMAGE_DIR,
+        height_field='height_field',
+        width_field='width_field'
+    )
     height_field = models.PositiveIntegerField(default=0)
     width_field = models.PositiveIntegerField(default=0)
 
@@ -15,11 +18,15 @@ class Specialty(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to=MEDIA_COMPANY_IMAGE_DIR, height_field='height_field', width_field='width_field')
+    logo = models.ImageField(
+        upload_to=MEDIA_COMPANY_IMAGE_DIR,
+        height_field='height_field',
+        width_field='width_field'
+    )
     height_field = models.PositiveIntegerField(default=0)
     width_field = models.PositiveIntegerField(default=0)
     description = models.TextField()
-    employee_count = models.IntegerField()
+    employee_count = models.CharField(max_length=100)
 
 
 class Vacancy(models.Model):
