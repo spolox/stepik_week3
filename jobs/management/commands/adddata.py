@@ -33,26 +33,22 @@ class Command(BaseCommand):
                     picture=os.path.join(MEDIA_SPECIALITY_IMAGE_DIR, 'specty_' + specialty['code'] + '.png'),
                 )
         for company in module.companies:
-            if Company.objects.filter(id=company['id']).first() is None:
-                Company.objects.create(
-                    pk=company['id'],
-                    name=company['title'],
-                    location=company['location'],
-                    description=company['description'],
-                    employee_count=company['employee_count'],
-                    logo=os.path.join(MEDIA_COMPANY_IMAGE_DIR, company['logo']),
-                )
+            Company.objects.create(
+                name=company['title'],
+                location=company['location'],
+                description=company['description'],
+                employee_count=company['employee_count'],
+                logo=os.path.join(MEDIA_COMPANY_IMAGE_DIR, company['logo']),
+            )
         for job in module.jobs:
-            if Vacancy.objects.filter(id=job['id']).first() is None:
-                Vacancy.objects.create(
-                    pk=job['id'],
-                    title=job['title'],
-                    specialty=Specialty.objects.get(code=job['specialty']),
-                    company=Company.objects.get(pk=job['company']),
-                    skills=job['skills'],
-                    description=job['description'],
-                    salary_min=job['salary_from'],
-                    salary_max=job['salary_to'],
-                    published_at=job['posted'],
-                )
-        print('Create database is finished')
+            Vacancy.objects.create(
+                title=job['title'],
+                specialty=Specialty.objects.get(code=job['specialty']),
+                company=Company.objects.get(pk=job['company']),
+                skills=job['skills'],
+                description=job['description'],
+                salary_min=job['salary_from'],
+                salary_max=job['salary_to'],
+                published_at=job['posted'],
+            )
+        print('New data are added')
