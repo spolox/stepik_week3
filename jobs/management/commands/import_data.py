@@ -30,22 +30,22 @@ class Command(BaseCommand):
             for specialty in module.specialties:
                 if Specialty.objects.filter(code=specialty['code']).first() is None:
                     specialty_img_filename = 'specty_' + specialty['code'] + '.png'
-                    specialty_img_file = open(os.path.join(directory,specialty_img_filename), 'rb')
-                    Specialty.objects.create(
-                        code=specialty['code'],
-                        title=specialty['title'],
-                        picture=File(specialty_img_file, specialty_img_filename),
-                    )
+                    with open(os.path.join(directory,specialty_img_filename), 'rb') as specialty_img_file:
+                        Specialty.objects.create(
+                            code=specialty['code'],
+                            title=specialty['title'],
+                            picture=File(specialty_img_file, specialty_img_filename),
+                        )
         if 'companies' in dir(module):
             for company in module.companies:
-                company_img_file = open(os.path.join(directory, company['logo']), 'rb')
-                Company.objects.create(
-                    name=company['title'],
-                    location=company['location'],
-                    description=company['description'],
-                    employee_count=company['employee_count'],
-                    logo=File(company_img_file, company['logo']),
-                )
+                with open(os.path.join(directory, company['logo']), 'rb') as company_img_file:
+                    Company.objects.create(
+                        name=company['title'],
+                        location=company['location'],
+                        description=company['description'],
+                        employee_count=company['employee_count'],
+                        logo=File(company_img_file, company['logo']),
+                    )
         if 'jobs' in dir(module):
             for job in module.jobs:
                 Vacancy.objects.create(
