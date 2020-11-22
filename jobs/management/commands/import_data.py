@@ -28,7 +28,7 @@ class Command(BaseCommand):
             for specialty in module_data.specialties:
                 if Specialty.objects.filter(code=specialty['code']).first() is None:
                     specialty_img_filename = 'specty_' + specialty['code'] + '.png'
-                    with open(os.path.join(directory,specialty_img_filename), 'rb') as specialty_img_file:
+                    with open(os.path.join(directory, specialty_img_filename), 'rb') as specialty_img_file:
                         Specialty.objects.create(
                             code=specialty['code'],
                             title=specialty['title'],
