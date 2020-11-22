@@ -5,7 +5,7 @@ Homework
 ```
 python manage.py import_data -f <filename>
 ```
-Filename must contain lists of jobs, companies, specialties
+File can contain lists of jobs, companies, specialties
 
 ## Attention!
 This project with DEBUG=True for show images on site.
