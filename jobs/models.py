@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 from stepik_hh.settings import MEDIA_SPECIALITY_IMAGE_DIR, MEDIA_COMPANY_IMAGE_DIR
 
@@ -30,6 +33,7 @@ class Company(models.Model):
     width_field = models.PositiveIntegerField(default=0)
     description = models.TextField()
     employee_count = models.CharField(max_length=100)
+    owner = models.OneToOneField(User)
 
     def __str__(self):
         return self.name
@@ -47,3 +51,11 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Application(models.Model):
+    written_username = models.CharField(max_length=100)
+    written_phone = PhoneNumberField()
+    written_cover_letter = models.TextField()
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
