@@ -19,8 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from jobs.views import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
-from jobs.views import custom_handler404, custom_handler500
+from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
+from jobs.views.public import custom_handler404, custom_handler500
 
 
 handler404 = custom_handler404
