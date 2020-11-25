@@ -33,12 +33,10 @@ urlpatterns = [
     path('vacancies/', ListVacancyView.as_view(), name='vacancy-list'),
     path('vacancies/<int:pk>', DetailVacancyView.as_view(), name='vacancy-detail'),
     path('vacancies/cat/<str:pk>', ListSpecialtyView.as_view(), name='specialty-list'),
-
     path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='feedback'),
     path('mycompany/', MyCompanyView.as_view(), name='mycompany'),
     path('mycompany/vacancies', ListMyCompanyVacancyView.as_view(), name='mycompany-vacancy-list'),
     path('mycompany/vacancies/<int:pk>', DetailMyCompanyVacancyView.as_view(), name='mycompany-vacancy-detail'),
-
 ]
 
 if settings.DEBUG:
