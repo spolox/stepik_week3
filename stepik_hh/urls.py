@@ -21,7 +21,7 @@ from django.urls import path
 
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
 from jobs.views.public import custom_handler404, custom_handler500
-
+from jobs.views.my_company import SendFeedBackView, ListMyCompanyVacancyView, MyCompanyView, DetailMyCompanyVacancyView
 
 handler404 = custom_handler404
 handler500 = custom_handler500
@@ -33,6 +33,12 @@ urlpatterns = [
     path('vacancies/', ListVacancyView.as_view(), name='vacancy-list'),
     path('vacancies/<int:pk>', DetailVacancyView.as_view(), name='vacancy-detail'),
     path('vacancies/cat/<str:pk>', ListSpecialtyView.as_view(), name='specialty-list'),
+
+    path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='feedback'),
+    path('mycompany/', MyCompanyView.as_view(), name='mycompany'),
+    path('mycompany/vacancies', ListMyCompanyVacancyView.as_view(), name='mycompany-vacancy-list'),
+    path('mycompany/vacancies/<int:pk>', DetailMyCompanyVacancyView.as_view(), name='mycompany-vacancy-detail'),
+
 ]
 
 if settings.DEBUG:

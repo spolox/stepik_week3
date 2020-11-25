@@ -17,7 +17,7 @@ class MyCompanyView(View):
         return render(request, os.path.join('jobs', 'my_company', 'company.html'), {})
 
 
-class MyCompanyVacanciesView(ListView):
+class ListMyCompanyVacancyView(ListView):
     model = Vacancy
     template_name = os.path.join('jobs', 'my_company', 'company_vacancy_list.html')
 
@@ -25,6 +25,6 @@ class MyCompanyVacanciesView(ListView):
         return Vacancy.objects.all()
 
 
-class MyCompanyVacancyView(DetailView):
+class DetailMyCompanyVacancyView(DetailView):
     model = Vacancy
     template_name = os.path.join('jobs', 'my_company', 'company_vacancy_list.html')
