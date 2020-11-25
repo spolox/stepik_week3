@@ -47,4 +47,3 @@ class ListSpecialtyView(DetailView):
 class DetailCompanyView(DetailView):
     model = Company
     template_name = os.path.join('jobs', 'public', 'company_detail.html')
-
