@@ -12,7 +12,7 @@ class Specialty(models.Model):
     picture = models.ImageField(
         upload_to=MEDIA_SPECIALITY_IMAGE_DIR,
         height_field='height_field',
-        width_field='width_field'
+        width_field='width_field',
     )
     height_field = models.PositiveIntegerField(default=0)
     width_field = models.PositiveIntegerField(default=0)
@@ -27,7 +27,7 @@ class Company(models.Model):
     logo = models.ImageField(
         upload_to=MEDIA_COMPANY_IMAGE_DIR,
         height_field='height_field',
-        width_field='width_field'
+        width_field='width_field',
     )
     height_field = models.PositiveIntegerField(default=0)
     width_field = models.PositiveIntegerField(default=0)

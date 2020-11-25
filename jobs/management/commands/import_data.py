@@ -8,7 +8,7 @@ from jobs.models import Specialty, Company, Vacancy
 
 
 class Command(BaseCommand):
-    help = 'Write new data to database from <filename>.\n' \
+    BaseCommand.help = 'Write new data to database from <filename>.\n' \
            'Filename should contain lists of jobs, companies, specialties'
 
     def add_arguments(self, parser):
