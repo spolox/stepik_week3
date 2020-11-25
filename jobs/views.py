@@ -15,8 +15,7 @@ def custom_handler500(request):
 
 
 class MainView(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         context = {
             'companies': Company.objects.all(),
             'specialties': Specialty.objects.all(),
