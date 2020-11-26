@@ -33,7 +33,7 @@ class Company(models.Model):
     width_field = models.PositiveIntegerField(default=0)
     description = models.TextField()
     employee_count = models.CharField(max_length=100)
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

@@ -8,3 +8,6 @@ from django.views.generic.base import View
 from jobs.models import Vacancy, Specialty, Company
 
 
+class MyResumeView(View):
+    def get(self, request):
+        return render(request, os.path.join('jobs', 'resume', 'resume.html'), {})
