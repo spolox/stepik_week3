@@ -17,8 +17,7 @@ def custom_handler500(request):
 
 
 class MainView(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         context = {
             'companies': Company.objects.all(),
             'specialties': Specialty.objects.all(),
@@ -29,9 +28,6 @@ class MainView(View):
 class ListVacancyView(ListView):
     model = Vacancy
     template_name = os.path.join('jobs', 'public', 'vacancy_list.html')
-
-    def get_queryset(self):
-        return Vacancy.objects.all()
 
 
 class DetailVacancyView(DetailView):

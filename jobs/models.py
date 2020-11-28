@@ -1,21 +1,20 @@
-from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-
-from stepik_hh.settings import MEDIA_SPECIALITY_IMAGE_DIR, MEDIA_COMPANY_IMAGE_DIR
 
 
 class Specialty(models.Model):
     code = models.CharField(max_length=20, primary_key=True)
     title = models.CharField(max_length=20)
     picture = models.ImageField(
-        upload_to=MEDIA_SPECIALITY_IMAGE_DIR,
-        height_field='height_field',
-        width_field='width_field',
+        upload_to=settings.MEDIA_SPECIALITY_IMAGE_DIR,
+        height_field='picture_height_field',
+        width_field='picture_width_field',
     )
-    height_field = models.PositiveIntegerField(default=0)
-    width_field = models.PositiveIntegerField(default=0)
+    picture_height_field = models.PositiveIntegerField(default=0)
+    picture_width_field = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -25,12 +24,12 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     logo = models.ImageField(
-        upload_to=MEDIA_COMPANY_IMAGE_DIR,
-        height_field='height_field',
-        width_field='width_field',
+        upload_to=settings.MEDIA_COMPANY_IMAGE_DIR,
+        height_field='logo_height_field',
+        width_field='logo_width_field',
     )
-    height_field = models.PositiveIntegerField(default=0)
-    width_field = models.PositiveIntegerField(default=0)
+    logo_height_field = models.PositiveIntegerField(default=0)
+    logo_width_field = models.PositiveIntegerField(default=0)
     description = models.TextField()
     employee_count = models.CharField(max_length=100)
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
