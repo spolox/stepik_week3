@@ -22,7 +22,8 @@ from django.urls import path
 
 
 from jobs.views.account import MyLoginView, MyRegisterView
-from jobs.views.my_company import SendFeedBackView, ListMyCompanyVacancyView, MyCompanyView, DetailMyCompanyVacancyView
+from jobs.views.my_company import SendFeedBackView, ListMyCompanyVacancyView
+from jobs.views.my_company import  MyCompanyView, DetailMyCompanyVacancyView
 from jobs.views.my_resume import MyResumeView
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
 from jobs.views.public import custom_handler404, custom_handler500

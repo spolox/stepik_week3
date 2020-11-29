@@ -33,8 +33,53 @@ class CompanyForm(forms.ModelForm):
         model = Company
         fields = ['name', 'location', 'logo', 'description', 'employee_count']
 
-class CompanyNoneLogoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CompanyForm, self).__init__(*args, **kwargs)
 
-    class Meta:
-        model = Company
-        fields = ['name', 'location', 'description', 'employee_count']
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+
+        self.helper.form_class = 'form-signin pt-5'
+        self.helper.use_custom_control = True
+        self.helper.layout = Layout(
+            Row(
+                Div(
+                    Div(
+                        Field('name'),
+                        css_class='form-group pb-2'
+                    ),
+                    css_class='col-12 col-md-6',
+                ),
+                Div(
+                    Div(
+                        HTML('{{ form.logo.label_tag }}'
+                             '{{ form.logo }}'
+                             '<div class="text-danger list-inline-item"><strong>{{ form.logo.errors }}</strong></div>'),
+                        css_class='form-group'
+                    ),
+                    css_class='col-12 col-md-6',
+                ),
+                Div(
+                    Div(
+                        Field('employee_count'),
+                        css_class='form-group pb-2'
+                    ),
+                    css_class='col-12 col-md-6',
+                ),
+                Div(
+                    Div(
+                        Field('location'),
+                        css_class='form-group pb-2'
+                    ),
+                    css_class='col-12 col-md-6',
+                ),
+                Div(
+                    Div(
+                        Field('description'),
+                        css_class='form-group pb-2',
+                    ),
+                    css_class='col-12',
+                ),
+            ),
+            FormActions(Submit('submit', 'Сохранить', css_class='btn btn-info')),
+        )

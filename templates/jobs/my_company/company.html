@@ -2,65 +2,60 @@
 
 {% load crispy_forms_tags %}
 
+{% block title %}
+    {% if form %}
+        Моя компания |
+    {% else %}
+        оздать карточку компании |
+    {% endif %}
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        background-color: #F6F2E6;
+    }
+</style>
+{% endblock %}
+
 {% block main %}
-<div class="row mt-5">
-    <div class="col-12 col-lg-4">
-        <aside class="pt-3 pb-4 px-4 mb-5 card">
-            <h1 class="h4 pt-2 pb-2">Моя компания</h1>
-            <div class="nav flex-column nav-pills">
-                <a class="nav-link active" href="#">1. Информация о&nbsp;компании</a>
-                <a class="nav-link" href="#">2. Вакансии</a>
+    {% if form %}
+        <div class="row mt-5">
+            <div class="col-12 col-lg-4">
+                <aside class="pt-3 pb-4 px-4 mb-5 card">
+                    <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+                    <div class="nav flex-column nav-pills">
+                        <a class="nav-link active" href="#">1. Информация о&nbsp;компании</a>
+                        <a class="nav-link {% if not is_exists %}disabled{% endif %}"
+                           href={% url 'mycompany-vacancy-list' %}>2. Вакансии</a>
+                    </div>
+                </aside>
             </div>
-        </aside>
-    </div>
-    <div class="col-12 col-lg-8">
-        <div class="card">
-            <div class="card-body px-4 pb-4">
-                <!-- Tab -->
-                <section class="tab-pane fade show active">
-                    <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
-                    {% include 'messages.html' %}
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group pb-2">
-                                    {{ form.name.label_tag }}
-                                    {{ form.name }}
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    {{ form.logo.label_tag }}
-                                    {{ form.logo }}
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group pb-2">
-                                    {{ form.employee_count.label_tag }}
-                                    {{ form.employee_count }}
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group pb-2">
-                                    {{ form.location.label_tag }}
-                                    {{ form.location }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group pb-2">
-                            {{ form.description.label_tag }}
-                            {{ form.description }}
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-info" value="Сохранить">
-                        </div>
-                    </form>
-                </section>
-                <!-- END Tab -->
+            <div class="col-12 col-lg-8">
+                <div class="card">
+                    <div class="card-body px-4 pb-4">
+                        <!-- Tab -->
+                        <section class="tab-pane fade show active">
+                            <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+                            {% include 'messages.html' %}
+                            {% crispy form 'bootstrap4' %}
+                        </section>
+                        <!-- END Tab -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
+    {% else %}
+        <section class="col-12 col-lg-6 offset-lg-3 mt-5 card">
+            <div class="card-body px-3 pb-4">
+                <h1 class="h4 pt-2">Моя компания</h1>
+                <p class="mt-2">Пока мы думаем, что вы – частное лицо. Хотите создать карточку компании,
+                    разместить информаию и вакансии?</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <a href="?create=True" class="btn btn-info mb-2">Создать карточку компании</a>
+                </form>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}
