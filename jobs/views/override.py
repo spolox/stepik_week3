@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class LoginRequiredMixinOverview(LoginRequiredMixin):
+class LoginRequiredMixinOverride(LoginRequiredMixin):
     login_url = 'login'
     redirect_field_name = 'next'
 

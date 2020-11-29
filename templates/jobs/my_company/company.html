@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load mycompany_confirm_delete %}
 
 {% block title %}
     {% if form %}
@@ -26,7 +27,7 @@
                     <h1 class="h4 pt-2 pb-2">Моя компания</h1>
                     <div class="nav flex-column nav-pills">
                         <a class="nav-link active" href="#">1. Информация о&nbsp;компании</a>
-                        <a class="nav-link {% if not is_exists %}disabled{% endif %}"
+                        <a class="nav-link {% if is_exists is None %}disabled{% endif %}"
                            href={% url 'mycompany-vacancy-list' %}>2. Вакансии</a>
                     </div>
                 </aside>
@@ -34,13 +35,13 @@
             <div class="col-12 col-lg-8">
                 <div class="card">
                     <div class="card-body px-4 pb-4">
-                        <!-- Tab -->
                         <section class="tab-pane fade show active">
                             <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+                            {% get_variable as variables %}
                             {% include 'messages.html' %}
                             {% crispy form 'bootstrap4' %}
+                            {% include 'modal_confirm.html' with variables=variables %}
                         </section>
-                        <!-- END Tab -->
                     </div>
                 </div>
             </div>
@@ -49,6 +50,7 @@
         <section class="col-12 col-lg-6 offset-lg-3 mt-5 card">
             <div class="card-body px-3 pb-4">
                 <h1 class="h4 pt-2">Моя компания</h1>
+                {% include 'messages.html' %}
                 <p class="mt-2">Пока мы думаем, что вы – частное лицо. Хотите создать карточку компании,
                     разместить информаию и вакансии?</p>
                 <form method="post" enctype="multipart/form-data">

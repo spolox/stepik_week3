@@ -23,7 +23,7 @@ from django.urls import path
 
 from jobs.views.account import MyLoginView, MyRegisterView
 from jobs.views.my_company import SendFeedBackView, ListMyCompanyVacancyView
-from jobs.views.my_company import  MyCompanyView, DetailMyCompanyVacancyView
+from jobs.views.my_company import  MyCompanyView, DetailMyCompanyVacancyView, MyCompanyDeleteView, MyCompanyCreateView
 from jobs.views.my_resume import MyResumeView
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
 from jobs.views.public import custom_handler404, custom_handler500
@@ -42,6 +42,8 @@ urlpatterns = [
     path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='feedback'),
 
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
+    path('mycompany', MyCompanyCreateView.as_view(), name='mycompany-create'),
+    path('mycompany/delete', MyCompanyDeleteView.as_view(), name='mycompany-delete'),
     path('mycompany/vacancies', ListMyCompanyVacancyView.as_view(), name='mycompany-vacancy-list'),
     path('mycompany/vacancies/<int:pk>', DetailMyCompanyVacancyView.as_view(), name='mycompany-vacancy-detail'),
     path('myresume', MyResumeView.as_view(), name='myresume'),

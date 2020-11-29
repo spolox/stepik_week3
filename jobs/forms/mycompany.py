@@ -1,7 +1,7 @@
 import os
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML, Row, Column
+from crispy_forms.layout import Layout, Submit, HTML, Row, Button
 from crispy_forms.bootstrap import Field, FormActions, Div
 from django import forms
 from django.forms.widgets import ClearableFileInput
@@ -39,7 +39,7 @@ class CompanyForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
 
-        self.helper.form_class = 'form-signin pt-5'
+        self.helper.form_class = 'pt-5'
         self.helper.use_custom_control = True
         self.helper.layout = Layout(
             Row(
@@ -81,5 +81,19 @@ class CompanyForm(forms.ModelForm):
                     css_class='col-12',
                 ),
             ),
-            FormActions(Submit('submit', 'Сохранить', css_class='btn btn-info')),
+            Row(
+                Div(
+                    FormActions(Submit('submit', 'Сохранить', css_class='btn btn-info')),
+                    css_class='col-6'
+                ),
+                Div(
+                    HTML('{% if is_exists is not None %}'
+                         '<button type="button" class="btn btn-danger float-right" data-toggle="modal" '
+                         'data-target="#{{ variables.id_modal }}">'
+                         'Удалить'
+                         '</button>'
+                         '{% endif %}'),
+                    css_class='col-6',
+                ),
+            ),
         )
