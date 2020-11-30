@@ -1,17 +1,11 @@
-import os
 import datetime
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, HTML, Row
 from crispy_forms.bootstrap import Field, FormActions, Div
 from django import forms
-from django.forms.widgets import ClearableFileInput
 
 from jobs.models import Vacancy, Specialty
-
-
-class CustomClearableFileInput(ClearableFileInput):
-    template_name = os.path.join('widgets', 'load_image.html')
 
 
 class VacancyForm(forms.ModelForm):
@@ -23,7 +17,7 @@ class VacancyForm(forms.ModelForm):
     salary_min.widget.attrs.update({'class': 'form-control'})
     salary_max = forms.CharField(label='Зарплата до', max_length=100)
     salary_max.widget.attrs.update({'class': 'form-control'})
-    skills = forms.CharField(label='Требуемые навыки', max_length=100, widget=forms.Textarea)
+    skills = forms.CharField(label='Требуемые навыки', widget=forms.Textarea)
     skills.widget.attrs.update({'class': 'form-control', 'rows': 3, 'cols': 10})
     description = forms.CharField(label='Описание вакансии', widget=forms.Textarea)
     description.widget.attrs.update({'class': 'form-control', 'rows': 8, 'cols': 10})

@@ -14,7 +14,6 @@ class CustomClearableFileInput(ClearableFileInput):
 
 
 class CompanyForm(forms.ModelForm):
-
     name = forms.CharField(label='Название компании', label_suffix='', max_length=100)
     name.widget.attrs.update({'class': 'form-control'})
     employee_count = forms.CharField(label='Количество человек в компании', label_suffix='', max_length=100)

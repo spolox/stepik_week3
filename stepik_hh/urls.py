@@ -21,10 +21,11 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 
-from jobs.views.account import MyLoginView, MyRegisterView, MyProfileView
+from jobs.views.account import MyLoginView, MyRegisterView, MyProfileView, MyPasswordChangeView
 from jobs.views.my_company import MyCompanyView, MyCompanyVacancyView, MyCompanyDeleteView, MyCompanyCreateView
 from jobs.views.my_company import MyCompanyVacancyListView, MyCompanyVacancyDeleteView, MyCompanyVacancyCreateView
-from jobs.views.my_resume import MyResumeView
+from jobs.views.my_company import MyCompanyFeedbackDeleteView
+from jobs.views.my_resume import MyResumeView, MyResumeCreateView, MyResumeDeleteView, MyResumePublicView
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
 from jobs.views.public import SendFeedBackView
 from jobs.views.public import custom_handler404, custom_handler500
@@ -40,7 +41,11 @@ urlpatterns = [
     path('vacancies', ListVacancyView.as_view(), name='vacancy-list'),
     path('vacancies/<int:pk>', DetailVacancyView.as_view(), name='vacancy-detail'),
     path('vacancies/cat/<str:pk>', ListSpecialtyView.as_view(), name='specialty-list'),
-    path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='feedback'),
+    path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='application-send'),
+    path('mycompany/vacancies/<int:id_vacancy>/application/<int:id_application>/delete',
+         MyCompanyFeedbackDeleteView.as_view(),
+         name='application-delete',
+         ),
 
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
     path('mycompany/create', MyCompanyCreateView.as_view(), name='mycompany-create'),
@@ -51,11 +56,16 @@ urlpatterns = [
     path('mycompany/vacancies/<int:pk>/delete', MyCompanyVacancyDeleteView.as_view(), name='mycompany-vacancy-delete'),
 
     path('myresume', MyResumeView.as_view(), name='myresume'),
+    path('myresume/create', MyResumeCreateView.as_view(), name='myresume-create'),
+    path('myresume/delete', MyResumeDeleteView.as_view(), name='myresume-delete'),
+    path('resume/<int:pk>', MyResumePublicView.as_view(), name='resume-public'),
+
     path('myprofile', MyProfileView.as_view(), name='myprofile'),
 
     path('register', MyRegisterView.as_view(), name='register'),
     path('login', MyLoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+    path('password', MyPasswordChangeView.as_view(), name='change-password'),
 ]
 
 if settings.DEBUG:

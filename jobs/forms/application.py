@@ -23,7 +23,7 @@ class ApplicationForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('feedback', kwargs={'pk': pk})
+        self.helper.form_action = reverse_lazy('application-send', kwargs={'pk': pk})
 
         self.helper.form_class = 'card mt-4 mb-3'
 
@@ -33,6 +33,6 @@ class ApplicationForm(forms.ModelForm):
                 Field('written_phone'),
                 Field('written_cover_letter'),
                 FormActions(Submit('submit', 'Записаться на пробный урок', css_class='btn btn-primary my-2')),
-                css_class='card-body mx-3'
+                css_class='card-body mx-3',
             ),
         )

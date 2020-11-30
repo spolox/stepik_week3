@@ -117,8 +117,8 @@ class Resume(models.Model):
         choices=EducationChoices.choices,
         default=EducationChoices.INCOMPLETE_HIGHER,
     )
-    experience = models.IntegerField()
-    portfolio = models.URLField(max_length=200)
+    experience = models.TextField()
+    portfolio = models.URLField(max_length=200, blank=True)
 
     def __str__(self):
         return 'Resume of ' + self.name + ' ' + self.surname

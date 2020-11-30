@@ -7,6 +7,7 @@ from django.views.generic.base import View
 
 from jobs.forms.application import ApplicationForm
 from jobs.models import Vacancy, Specialty, Company
+from jobs.views.override import LoginRequiredMixinOverride
 
 
 def custom_handler404(request, exception):
@@ -52,7 +53,7 @@ class DetailCompanyView(DetailView):
     template_name = os.path.join('jobs', 'public', 'company_detail.html')
 
 
-class SendFeedBackView(View):
+class SendFeedBackView(LoginRequiredMixinOverride, View):
     def post(self, request, pk):
         application_form = ApplicationForm(pk, request.POST)
         vacancy = Vacancy.objects.filter(id=pk).first()
