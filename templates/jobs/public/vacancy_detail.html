@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block main %}
     <div class="row mt-5">
@@ -24,24 +25,12 @@
                     <p>{{ vacancy.company.description }}</p>
                     {{ vacancy.description|safe  }}
                 </div>
-                <form action="/echo" class="card mt-4 mb-3" enctype="multipart/form-data">
-                    <div class="card-body mx-3">
-                        <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
-                        <div class="form-group">
-                            <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-                            <input class="form-control" type="text" placeholder="" id="userName">
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-1" for="userPhone">Ваш телефон</label>
-                            <input class="form-control" type="tel" placeholder="" id="userPhone">
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-1" for="userMsg">Сопроводительное письмо</label>
-                            <textarea class="form-control" rows="8" id="userMsg"></textarea>
-                        </div>
-                        <input type="submit" class="btn btn-primary mt-4 mb-2" value="Записаться на пробный урок">
-                    </div>
-                </form>
+                <a name="feedback"></a>
+                {% if form %}
+                    {% crispy form 'bootstrap4' %}
+                {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}#feedback" class="btn btn-primary btn-lg my-2">Авторизируйтесь для отправки отклика</a>
+                {% endif %}
             </section>
         </div>
     </div>

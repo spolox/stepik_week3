@@ -16,53 +16,42 @@
 
 {% block main %}
 <div class="row mt-5">
-    <div class="col-12 col-lg-4">
-        <aside class="pt-3 pb-4 px-4 mb-5 card">
-            <h1 class="h4 pt-2 pb-2">Моя компания</h1>
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" href={% url 'mycompany' %}>1. Информация о&nbsp;компании</a>
-                <a class="nav-link active" href="#">2. Вакансии</a>
-            </div>
-        </aside>
-    </div>
+    {% include 'jobs/my_company/company_nav.html' %}
     <div class="col-12 col-lg-8">
         <div class="card">
             <div class="card-body px-4 pb-4">
                 <section class="tab-pane fade show active">
                     <h2 class="h4 pt-2 pb-3">Вакансии</h2>
-                    {% if vacancy_list %}
-                        {% for vacancy in vacancy_list %}
-                            <div class="card mt-3">
-                                <div class="card-body px-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-6 col-lg-8">
-                                            <a href="#" class="mb-1">{{ vacancy.title }}</a>
-                                            <p class="mb-1">
-                                                <span class="mr-4">
-                                                    {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
-                                                </span>
-                                                {% if vacancy.applications.count != 0 %}
-                                                    <a href="#" class="text-info">
-                                                        { vacancy.applications.count }} отклика
-                                                    </a>
-                                                {% else %}
-                                                    Нет откликов
-                                                {% endif %}
-                                            </p>
-                                        </div>
-                                        <div class="col-6 col-lg-4 text-right">
-                                            <a href="#" class="btn btn-outline-info">Изменить</a>
-                                        </div>
+                    {% include 'messages.html' %}
+                    {% for vacancy in vacancy_list %}
+                        <div class="card mt-3">
+                            <div class="card-body px-4">
+                                <div class="row align-items-center">
+                                    <div class="col-6 col-lg-8">
+                                        <a href={% url 'mycompany-vacancy-edit' vacancy.id %} class="mb-1">{{ vacancy.title }}</a>
+                                        <p class="mb-1">
+                                            <span class="mr-4">
+                                                {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
+                                            </span>
+                                            {% if vacancy.applications.count != 0 %}
+                                                <a href="{% url 'mycompany-vacancy-edit' vacancy.id %}#feedbacks" class="text-info">
+                                                    {{ vacancy.applications.count }} отклика
+                                                </a>
+                                            {% else %}
+                                                Нет откликов
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="col-6 col-lg-4 text-right">
+                                        <a href={% url 'mycompany-vacancy-edit' vacancy.id %} class="btn btn-outline-info">Изменить</a>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
-                    {% else %}
-                        {% include 'messages.html' %}
-                        <div class="col-6 col-lg-4 text-left">
-                            <a href="#" class="btn btn-outline-info">Добавить вакансию</a>
                         </div>
-                    {% endif %}
+                    {% endfor %}
+                    <div class="col-6 col-lg-4 text-left">
+                        <a href={% url 'mycompany-vacancy-create' %} class="btn btn-outline-info mt-4">Добавить вакансию</a>
+                    </div>
                 </section>
             </div>
         </div>

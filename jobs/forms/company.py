@@ -1,14 +1,10 @@
 import os
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML, Row, Button
+from crispy_forms.layout import Layout, Submit, HTML, Row
 from crispy_forms.bootstrap import Field, FormActions, Div
 from django import forms
 from django.forms.widgets import ClearableFileInput
-from django.conf import settings
-from django.contrib.auth import password_validation
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.conf import settings
 
 from jobs.models import Company
 
@@ -44,52 +40,37 @@ class CompanyForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Div(
-                    Div(
-                        Field('name'),
-                        css_class='form-group pb-2'
-                    ),
+                    Field('name'),
                     css_class='col-12 col-md-6',
                 ),
                 Div(
-                    Div(
-                        HTML('{{ form.logo.label_tag }}'
-                             '{{ form.logo }}'
-                             '<div class="text-danger list-inline-item"><strong>{{ form.logo.errors }}</strong></div>'),
-                        css_class='form-group'
-                    ),
+                    HTML('{{ form.logo.label_tag }}'
+                         '{{ form.logo }}'
+                         '<div class="text-danger list-inline-item"><strong>{{ form.logo.errors }}</strong></div>'),
                     css_class='col-12 col-md-6',
                 ),
                 Div(
-                    Div(
-                        Field('employee_count'),
-                        css_class='form-group pb-2'
-                    ),
+                    Field('employee_count'),
                     css_class='col-12 col-md-6',
                 ),
                 Div(
-                    Div(
-                        Field('location'),
-                        css_class='form-group pb-2'
-                    ),
+                    Field('location'),
                     css_class='col-12 col-md-6',
                 ),
                 Div(
-                    Div(
-                        Field('description'),
-                        css_class='form-group pb-2',
-                    ),
+                    Field('description'),
                     css_class='col-12',
                 ),
             ),
             Row(
                 Div(
                     FormActions(Submit('submit', 'Сохранить', css_class='btn btn-info')),
-                    css_class='col-6'
+                    css_class='col-6',
                 ),
                 Div(
-                    HTML('{% if is_exists is not None %}'
+                    HTML('{% if is_new_company is None %}'
                          '<button type="button" class="btn btn-danger float-right" data-toggle="modal" '
-                         'data-target="#{{ variables.id_modal }}">'
+                         'data-target="#id_confirm_delete">'
                          'Удалить'
                          '</button>'
                          '{% endif %}'),

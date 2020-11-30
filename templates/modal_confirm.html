@@ -1,4 +1,4 @@
-<div class="modal fade" id="{{ variables.id_modal }}" tabindex="-1" role="dialog" aria-labelledby="{{ variables.id_modal }}" aria-hidden="true">
+<div class="modal fade" id="id_confirm_delete" tabindex="-1" role="dialog" aria-labelledby="id_confirm_delete" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,7 +12,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-        <form  method="post" action="{{ variables.modal_url_action }}?next={{ request.path|urlencode }}">
+        <form  method="post" action="{{ variables.modal_url_action }}?next={{ variables.next_url }}">
             {% csrf_token %}
             <input type="submit" class="btn btn-danger" value="Подтверждаю">
         </form>

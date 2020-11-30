@@ -2,7 +2,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, HTML
 from crispy_forms.bootstrap import Field, FormActions, Div
 from django import forms
-from django.contrib.auth import password_validation
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
@@ -21,7 +20,7 @@ class UserLoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             Div(
                 HTML('<p class="text-muted">Логин</p>'),
-                Field('username', ),
+                Field('username'),
             ),
             Div(
                 HTML('<p class="text-muted">Пароль</p>'),
@@ -43,7 +42,11 @@ class UserRegisterForm(UserCreationForm):
         strip=False,
         widget=forms.PasswordInput,
     )
-    password2 = None
+    password2 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput,
+    )
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
@@ -70,6 +73,10 @@ class UserRegisterForm(UserCreationForm):
                 HTML('<p class="text-muted">Пароль</p>'),
                 Field('password1'),
             ),
+            Div(
+                HTML('<p class="text-muted">Подверждение пароля</p>'),
+                Field('password2'),
+            ),
             FormActions(Submit('submit', 'Зарегистироваться', css_class='btn btn-primary btn-lg btn-block mt-5')),
         )
 
@@ -82,11 +89,3 @@ class UserRegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-    def clean_password1(self):
-        password1 = self.cleaned_data.get('password1')
-        try:
-            password_validation.validate_password(password1, self.instance)
-        except forms.ValidationError as error:
-            self.add_error('password1', error)
-        return password1

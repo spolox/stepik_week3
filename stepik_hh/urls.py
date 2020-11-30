@@ -21,11 +21,12 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 
-from jobs.views.account import MyLoginView, MyRegisterView
-from jobs.views.my_company import SendFeedBackView, ListMyCompanyVacancyView
-from jobs.views.my_company import  MyCompanyView, DetailMyCompanyVacancyView, MyCompanyDeleteView, MyCompanyCreateView
+from jobs.views.account import MyLoginView, MyRegisterView, MyProfileView
+from jobs.views.my_company import MyCompanyView, MyCompanyVacancyView, MyCompanyDeleteView, MyCompanyCreateView
+from jobs.views.my_company import MyCompanyVacancyListView, MyCompanyVacancyDeleteView, MyCompanyVacancyCreateView
 from jobs.views.my_resume import MyResumeView
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
+from jobs.views.public import SendFeedBackView
 from jobs.views.public import custom_handler404, custom_handler500
 
 handler404 = custom_handler404
@@ -42,11 +43,15 @@ urlpatterns = [
     path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='feedback'),
 
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
-    path('mycompany', MyCompanyCreateView.as_view(), name='mycompany-create'),
+    path('mycompany/create', MyCompanyCreateView.as_view(), name='mycompany-create'),
     path('mycompany/delete', MyCompanyDeleteView.as_view(), name='mycompany-delete'),
-    path('mycompany/vacancies', ListMyCompanyVacancyView.as_view(), name='mycompany-vacancy-list'),
-    path('mycompany/vacancies/<int:pk>', DetailMyCompanyVacancyView.as_view(), name='mycompany-vacancy-detail'),
+    path('mycompany/vacancies', MyCompanyVacancyListView.as_view(), name='mycompany-vacancy-list'),
+    path('mycompany/vacancies/<int:pk>', MyCompanyVacancyView.as_view(), name='mycompany-vacancy-edit'),
+    path('mycompany/vacancies/create', MyCompanyVacancyCreateView.as_view(), name='mycompany-vacancy-create'),
+    path('mycompany/vacancies/<int:pk>/delete', MyCompanyVacancyDeleteView.as_view(), name='mycompany-vacancy-delete'),
+
     path('myresume', MyResumeView.as_view(), name='myresume'),
+    path('myprofile', MyProfileView.as_view(), name='myprofile'),
 
     path('register', MyRegisterView.as_view(), name='register'),
     path('login', MyLoginView.as_view(), name='login'),

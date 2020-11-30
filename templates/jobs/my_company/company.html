@@ -22,25 +22,18 @@
 {% block main %}
     {% if form %}
         <div class="row mt-5">
-            <div class="col-12 col-lg-4">
-                <aside class="pt-3 pb-4 px-4 mb-5 card">
-                    <h1 class="h4 pt-2 pb-2">Моя компания</h1>
-                    <div class="nav flex-column nav-pills">
-                        <a class="nav-link active" href="#">1. Информация о&nbsp;компании</a>
-                        <a class="nav-link {% if is_exists is None %}disabled{% endif %}"
-                           href={% url 'mycompany-vacancy-list' %}>2. Вакансии</a>
-                    </div>
-                </aside>
-            </div>
+            {% include 'jobs/my_company/company_nav.html' %}
             <div class="col-12 col-lg-8">
                 <div class="card">
                     <div class="card-body px-4 pb-4">
                         <section class="tab-pane fade show active">
                             <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
-                            {% get_variable as variables %}
                             {% include 'messages.html' %}
                             {% crispy form 'bootstrap4' %}
-                            {% include 'modal_confirm.html' with variables=variables %}
+                            {% if is_new_company is None %}
+                                {% get_variable as variables %}
+                                {% include "modal_confirm.html" with variables=variables %}
+                            {% endif %}
                         </section>
                     </div>
                 </div>
@@ -55,7 +48,7 @@
                     разместить информаию и вакансии?</p>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <a href="?create=True" class="btn btn-info mb-2">Создать карточку компании</a>
+                    <a href={% url 'mycompany-create' %} class="btn btn-info mb-2">Создать карточку компании</a>
                 </form>
             </div>
         </section>

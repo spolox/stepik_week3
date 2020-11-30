@@ -45,21 +45,21 @@
                                     {% endif %}
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                                    <a href="/myprofile" class="dropdown-item py-2">Профиль</a>
-                                    <a href="/myresume" class="dropdown-item py-2">Резюме</a>
-                                    <a href="/mycompany" class="dropdown-item py-2">Компания</a>
-                                    <a href="/logout" class="dropdown-item py-2">Выйти</a>
+                                    <a href={% url 'myprofile' %} class="dropdown-item py-2">Профиль</a>
+                                    <a href={% url 'myresume' %} class="dropdown-item py-2">Резюме</a>
+                                    <a href={% url 'mycompany' %} class="dropdown-item py-2">Компания</a>
+                                    <a href={% url 'logout' %} class="dropdown-item py-2">Выйти</a>
                                 </div>
                             </div>
                         {% else %}
-                            <a href="login" class="nav-link font-weight-bold">Вход</a>
+                            <a href={% url 'login' %} class="nav-link font-weight-bold">Вход</a>
                         {% endif %}
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
-    <main class="container mt-3">
+    <main class="container mt-3 pb-5">
         {% block main %}
         {% endblock %}
     </main>
