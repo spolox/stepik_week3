@@ -57,7 +57,7 @@ class DetailCompanyView(DetailView):
     template_name = os.path.join('jobs', 'public', 'company_detail.html')
 
 
-class SendFeedBackView(LoginRequiredMixinOverride, View):
+class SendResumeView(LoginRequiredMixinOverride, View):
     def post(self, request, pk):
         application_form = ApplicationForm(pk, request.POST)
         vacancy = Vacancy.objects.filter(id=pk).first()

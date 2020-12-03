@@ -27,7 +27,7 @@ from jobs.views.my_company import MyCompanyVacancyListView, MyCompanyVacancyDele
 from jobs.views.my_company import MyCompanyFeedbackDeleteView
 from jobs.views.my_resume import MyResumeView, MyResumeCreateView, MyResumeDeleteView, MyResumePublicView
 from jobs.views.public import MainView, ListVacancyView, DetailVacancyView, ListSpecialtyView, DetailCompanyView
-from jobs.views.public import SendFeedBackView
+from jobs.views.public import SendResumeView
 from jobs.views.public import SearchVacancyView
 from jobs.views.public import custom_handler404, custom_handler500
 
@@ -42,7 +42,7 @@ urlpatterns = [
     path('vacancies/', ListVacancyView.as_view(), name='vacancy-list'),
     path('vacancies/<int:pk>', DetailVacancyView.as_view(), name='vacancy-detail'),
     path('vacancies/cat/<str:pk>', ListSpecialtyView.as_view(), name='specialty-list'),
-    path('vacancies/<int:pk>/send', SendFeedBackView.as_view(), name='application-send'),
+    path('vacancies/<int:pk>/send', SendResumeView.as_view(), name='application-send'),
     path('mycompany/vacancies/<int:id_vacancy>/<int:id_application>/delete',
          MyCompanyFeedbackDeleteView.as_view(),
          name='application-delete',

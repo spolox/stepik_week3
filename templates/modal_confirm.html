@@ -21,3 +21,12 @@
     </div>
   </div>
 </div>
+
+<script>
+  let id_btn_delete = document.getElementById('id_btn_delete');
+  if (id_btn_delete) {
+      id_btn_delete.setAttribute('class', 'btn btn-danger float-right');
+      id_btn_delete.setAttribute('data-toggle', 'modal');
+      id_btn_delete.setAttribute('data-target', '#id_confirm_delete');
+  }
+</script>

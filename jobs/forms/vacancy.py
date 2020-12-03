@@ -1,7 +1,7 @@
 import datetime
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML, Row
+from crispy_forms.layout import Layout, Submit, Row, Button
 from crispy_forms.bootstrap import Field, FormActions, Div
 from django import forms
 
@@ -67,11 +67,7 @@ class VacancyForm(forms.ModelForm):
                     css_class='col-6',
                 ),
                 Div(
-                    HTML('{% if is_new_vacancy is None %}'
-                         '<button type="button" class="btn btn-danger float-right" data-toggle="modal" '
-                         'data-target="#id_confirm_delete">Удалить</button>'
-                         '{% endif %}',
-                         ),
+                    Button('delete', 'Удалить', css_class='d-none', css_id='id_btn_delete'),
                     css_class='col-6',
                 ),
             ),

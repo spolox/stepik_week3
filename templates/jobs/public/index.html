@@ -9,7 +9,7 @@
         {%  include 'search_form.html' %}
         <p>Например:
           {% for search_example in search_examples %}
-            <a href="{% url 'search-vacancy' %}?query={{ search_example|urlencode }}|"
+            <a href="{% url 'search-vacancy' %}?query={{ search_example|urlencode }}"
                class="text-dark border-bottom border-dark m-1 text-decoration-none">
                   {{ search_example }}
             </a>
@@ -31,7 +31,7 @@
               <p class="card-text mb-2">{{ specialty.title }}</p>
               <p class="card-text">
                 <a href="{% url 'specialty-list' specialty.code %}">
-                  {{ specialty.vacancies.all.count }} вакансий
+                  {{ specialty.vacancies.all|length }} вакансий
                 </a>
               </p>
             </div>
@@ -52,7 +52,7 @@
             <div class="card-body">
               <p class="card-text">
                 <a href={% url 'company-detail' company.id %}>
-                  {{ company.vacancies.all.count }} вакансий
+                  {{ company.vacancies.all|length }} вакансий
                 </a>
               </p>
             </div>

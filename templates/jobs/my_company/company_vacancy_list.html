@@ -35,12 +35,14 @@
                         <span class="mr-4">
                           {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
                         </span>
-                        {% if vacancy.applications.count != 0 %}
-                          <a href="{% url 'mycompany-vacancy-edit' vacancy.id %}#applications"
-                             class="text-info">{{ vacancy.applications.count }} отклика</a>
-                        {% else %}
-                          Нет откликов
-                        {% endif %}
+                        {%  with applications=vacancy.applications.all %}
+                          {% if applications|length > 0 %}
+                            <a href="{% url 'mycompany-vacancy-edit' vacancy.id %}#applications"
+                               class="text-info">{{ applications|length }} отклика</a>
+                          {% else %}
+                            Нет откликов
+                          {% endif %}
+                        {%  endwith %}
                       </p>
                     </div>
                     <div class="col-6 col-lg-4 text-right">
