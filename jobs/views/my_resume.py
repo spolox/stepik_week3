@@ -78,7 +78,7 @@ class MyResumePublicView(LoginRequiredMixinOverride, View):
         query_user_application = Application.objects.filter(
             vacancy__company__owner=request.user,
             user__id=pk)
-        if pk != request.user.id and query_user_application.first() is None:
+        if not (pk == request.user.id or query_user_application.first() is not None):
             messages.error(request, 'У вас нет права на просмотр резюме')
             return redirect(next_url)
         context = {'resume': user_resume}

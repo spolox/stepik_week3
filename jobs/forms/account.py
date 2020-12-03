@@ -1,14 +1,13 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML
-from crispy_forms.bootstrap import Field, FormActions, Div
+from crispy_forms.layout import Layout, Submit
+from crispy_forms.bootstrap import Field, FormActions
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
-from django.contrib.auth.models import User
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(label='', widget=forms.TextInput)
-    password = forms.CharField(label='', widget=forms.PasswordInput)
+    username = forms.CharField(label='Логин', widget=forms.TextInput)
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
@@ -17,34 +16,20 @@ class UserLoginForm(AuthenticationForm):
         self.helper.form_method = 'post'
 
         self.helper.form_class = 'form-signin pt-5'
-
+        self.helper.label_class = 'text-muted'
         self.helper.layout = Layout(
-            Div(
-                HTML('<p class="text-muted">Логин</p>'),
-                Field('username'),
-            ),
-            Div(
-                HTML('<p class="text-muted">Пароль</p>'),
-                Field('password'),
-            ),
-            FormActions(Submit('submit', 'Войти', css_class='btn btn-primary btn-lg btn-block mt-5')),
+            Field('username'),
+            Field('password'),
+            FormActions(Submit('submit', 'Войти', css_class='btn btn-primary btn-lg btn-block')),
         )
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(
-        label='',
-        widget=forms.TextInput,
-    )
-    first_name = forms.CharField(label='', widget=forms.TextInput)
-    last_name = forms.CharField(label='', widget=forms.TextInput)
+    username = forms.CharField(label='Логин', widget=forms.TextInput)
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput, required=False)
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput, required=False)
     password1 = forms.CharField(
-        label='',
-        strip=False,
-        widget=forms.PasswordInput,
-    )
-    password2 = forms.CharField(
-        label='',
+        label='Пароль',
         strip=False,
         widget=forms.PasswordInput,
     )
@@ -56,17 +41,12 @@ class UserRegisterForm(UserCreationForm):
         self.helper.form_method = 'post'
 
         self.helper.form_class = 'pt-5'
-
+        self.helper.label_class = 'text-muted'
         self.helper.layout = Layout(
-            HTML('<p class="text-muted">Логин</p>'),
             Field('username'),
-            HTML('<p class="text-muted">Имя</p>'),
             Field('first_name'),
-            HTML('<p class="text-muted">Фамилия</p>'),
             Field('last_name'),
-            HTML('<p class="text-muted">Пароль</p>'),
             Field('password1'),
-            HTML('<p class="text-muted">Подверждение пароля</p>'),
             Field('password2'),
             FormActions(Submit('submit', 'Зарегистироваться', css_class='btn btn-primary btn-lg btn-block mt-5')),
         )
@@ -87,7 +67,7 @@ class ProfileForm(forms.ModelForm):
     username.widget.attrs.update({'readonly': True})
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['username', 'first_name', 'last_name']
 
     def __init__(self, *args, **kwargs):

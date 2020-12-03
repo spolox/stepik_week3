@@ -69,9 +69,7 @@ class CompanyForm(forms.ModelForm):
                 Div(
                     HTML('{% if is_new_company is None %}'
                          '<button type="button" class="btn btn-danger float-right" data-toggle="modal" '
-                         'data-target="#id_confirm_delete">'
-                         'Удалить'
-                         '</button>'
+                         'data-target="#id_confirm_delete">Удалить</button>'
                          '{% endif %}'),
                     css_class='col-6',
                 ),

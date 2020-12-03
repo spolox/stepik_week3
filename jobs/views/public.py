@@ -1,5 +1,7 @@
 import os
 
+from django.conf import settings
+from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
@@ -21,8 +23,9 @@ def custom_handler500(request):
 class MainView(View):
     def get(self, request):
         context = {
-            'companies': Company.objects.all(),
-            'specialties': Specialty.objects.all(),
+            'companies': Company.objects.all().prefetch_related('vacancies'),
+            'specialties': Specialty.objects.all().prefetch_related('vacancies'),
+            'search_examples': settings.SEARCH_EXAMPLES,
         }
         return render(request, os.path.join('jobs', 'public', 'index.html'), context)
 
@@ -30,6 +33,7 @@ class MainView(View):
 class ListVacancyView(ListView):
     model = Vacancy
     template_name = os.path.join('jobs', 'public', 'vacancy_list.html')
+    queryset = model.objects.all().select_related('company')
 
 
 class DetailVacancyView(DetailView):
@@ -66,3 +70,17 @@ class SendFeedBackView(LoginRequiredMixinOverride, View):
             return render(request, os.path.join('jobs', 'public', 'vacancy_detail.html'),
                           {'form': application_form, 'pk': pk, 'vacancy': vacancy})
         return render(request, os.path.join('jobs', 'public', 'sent.html'), {'pk': pk})
+
+
+class SearchVacancyView(View):
+    def get(self, request):
+        query = request.GET.get('query', None)
+        if not query:
+            context = {'vacancy_list': Vacancy.objects.all().select_related('company')}
+        else:
+            query_search_vacancy = Vacancy.objects.filter(
+                Q(title__icontains=query) |
+                Q(skills__icontains=query) |
+                Q(description__icontains=query)).all().select_related('company')
+            context = {'vacancy_list': query_search_vacancy, 'query': query}
+        return render(request, os.path.join('jobs', 'public', 'vacancy_list.html'), context)

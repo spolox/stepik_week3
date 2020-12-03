@@ -28,7 +28,7 @@
         </li>
         {% if user.is_superuser %}
           <li>
-            <a class="nav-link" href="admin/">Панель админа</a>
+            <a class="nav-link" href="/admin/">Панель админа</a>
           </li>
         {% endif %}
       </ul>
@@ -45,9 +45,11 @@
                 {% endif %}
               </button>
               <div class="dropdown-menu dropdown-menu-right mt-3">
-                <a href={% url 'myprofile' %} class="dropdown-item py-2">Профиль</a>
-                <a href={% url 'myresume' %} class="dropdown-item py-2">Резюме</a>
-                <a href={% url 'mycompany' %} class="dropdown-item py-2">Компания</a>
+                {% if not user.is_superuser %}
+                  <a href={% url 'myprofile' %} class="dropdown-item py-2">Профиль</a>
+                  <a href={% url 'myresume' %} class="dropdown-item py-2">Резюме</a>
+                  <a href={% url 'mycompany' %} class="dropdown-item py-2">Компания</a>
+                {%  endif %}
                 <a href={% url 'logout' %} class="dropdown-item py-2">Выйти</a>
               </div>
             </div>
