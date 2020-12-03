@@ -9,7 +9,7 @@
         </p>
         {% include 'search_form.html' %}
         <p class="text-center pt-1">
-          {% if vacancy_list is None %}
+          {% if vacancy_list.count == 0 %}
             Ничего не найдено
           {% else %}
             Найдено {{ vacancy_list.count }} вакансий
